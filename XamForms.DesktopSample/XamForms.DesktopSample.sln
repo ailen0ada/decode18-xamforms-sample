@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamForms.DesktopSample.Core", "XamForms.DesktopSample.Core\XamForms.DesktopSample.Core.csproj", "{77BC9BE9-D13B-4433-818F-DF22F0D02939}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77BC9BE9-D13B-4433-818F-DF22F0D02939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77BC9BE9-D13B-4433-818F-DF22F0D02939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77BC9BE9-D13B-4433-818F-DF22F0D02939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77BC9BE9-D13B-4433-818F-DF22F0D02939}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

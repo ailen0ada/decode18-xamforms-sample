@@ -24,3 +24,16 @@ iOS, Androidについてはこのサンプルでは対象としないため，SD
   - XamForms.DesktopSample.Mac - Xamarin.Mac実装
   - XamForms.DesktopSample.Wpf - WPF (Windows Presentation Platform) 実装
   - XamForms.DesktopSample.WinForms - Windows Forms実装
+
+## Core
+### 新規.NET Standard 2.0ライブラリプロジェクトを作成する
+始めに作成されている `Class1.cs` は削除してかまいません。
+### Xamarin.Forms パッケージを導入する
+NuGet パッケージを追加します。執筆時点ではバージョン `3.0.0.482510` が最新版でした。
+### App.xaml/App.xaml.cs を作成する
+`Forms ContentPage` テンプレートを使って作成し， `Application` として振る舞うように書き換えます。
+### MainPage.xaml/MainPage.xaml.cs を作成する
+`Forms ContentPage` テンプレートを使って作成します。
+
+## macOS
+### 新規Cocoa Appプロジェクトを作成する
