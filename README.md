@@ -25,15 +25,41 @@ iOS, Androidについてはこのサンプルでは対象としないため，SD
   - XamForms.DesktopSample.Wpf - WPF (Windows Presentation Platform) 実装
   - XamForms.DesktopSample.WinForms - Windows Forms実装
 
-## Core
-### 新規.NET Standard 2.0ライブラリプロジェクトを作成する
-始めに作成されている `Class1.cs` は削除してかまいません。
-### Xamarin.Forms パッケージを導入する
-NuGet パッケージを追加します。執筆時点ではバージョン `3.0.0.482510` が最新版でした。
-### App.xaml/App.xaml.cs を作成する
-`Forms ContentPage` テンプレートを使って作成し， `Application` として振る舞うように書き換えます。
-### MainPage.xaml/MainPage.xaml.cs を作成する
-`Forms ContentPage` テンプレートを使って作成します。
+## 各プラットフォームで Xamarin.Forms アプリケーションを動かす
 
-## macOS
-### 新規Cocoa Appプロジェクトを作成する
+### Core
+#### 新規.NET Standard 2.0ライブラリプロジェクトを作成する
+始めに作成されている `Class1.cs` は削除してかまいません。
+#### Xamarin.Forms パッケージを導入する
+NuGet パッケージを追加します。執筆時点ではバージョン `3.0.0.482510` が最新版でした。
+#### App.xaml/App.xaml.cs を作成する
+`Forms ContentPage` テンプレートを使って作成し， `Application` として振る舞うように書き換えます。
+#### MainPage.xaml/MainPage.xaml.cs を作成する
+`Forms ContentPage` テンプレートを使って作成します。XAMLの中身は現段階では適当にしておきます。おおよそ次のようになるでしょう。
+
+```MainPage.xaml
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamForms.DesktopSample.Core.MainPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Label Text="Welcome to Xamarin Forms!" VerticalOptions="Center" HorizontalOptions="Center" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+```
+
+### macOS
+#### 新規Cocoa Appプロジェクトを作成する
+#### Info.plistを編集
+`NSMainStoryboardFile` のエントリを削除します。起動時に表示されるユーザーインタフェースをこちらでコントロールできるようになります。
+
+#### Main.storyboard, ViewController.cs を削除
+UIはCoreプロジェクトで作成しているので不要です。
+
+#### Xamarin.Forms パッケージを導入する
+Coreと同様に導入します。また，忘れずにCoreプロジェクトへの参照を追加します。
+
+#### AppDelegate.cs を編集
+`FormsApplicationDelegate` として振る舞うように書き換えます。
