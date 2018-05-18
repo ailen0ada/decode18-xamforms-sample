@@ -8,6 +8,11 @@ Xamarin.Forms はモバイル開発のためだけのものではありません
 - Visual Studio 2017 15.7.1 （デスクトップアプリケーション開発）
 - Visual Studio for Mac 7.5.1.22
 - Xamarin.Mac 4.4.1.178
+- MonoDevelop 7.5.0.1254
+
+- Windows 10 1803
+- macOS High Sierra 10.13.3
+- Ubuntu 18.04
 
 iOS, Androidについてはこのサンプルでは対象としないため，SDKインストール等は不要です。さらにmacOSのサンプルを実行しないのであれば，macOS環境も不要です。
 
@@ -23,19 +28,22 @@ iOS, Androidについてはこのサンプルでは対象としないため，SD
   - XamForms.DesktopSample.Core - UI定義と減色処理
   - XamForms.DesktopSample.Mac - Xamarin.Mac実装
   - XamForms.DesktopSample.Wpf - WPF (Windows Presentation Platform) 実装
-  - XamForms.DesktopSample.WinForms - Windows Forms実装
+  - XamForms.DesktopSample.Gtk - Gtk# 実装
 
 ## 各プラットフォームで Xamarin.Forms アプリケーションを動かす
 
 ### Core
+いずれかの　Visual Studio で作業を開始します。執筆時点でスムーズに構築を進めるには Mac を使われることをお勧めします。
+
 #### 新規.NET Standard 2.0ライブラリプロジェクトを作成する
 始めに作成されている `Class1.cs` は削除してかまいません。
 #### Xamarin.Forms パッケージを導入する
 NuGet パッケージを追加します。執筆時点ではバージョン `3.0.0.482510` が最新版でした。
 #### App.xaml/App.xaml.cs を作成する
 `Forms ContentPage` テンプレートを使って作成し， `Application` として振る舞うように書き換えます。
+テンプレートを使わずとも、適当なファイルを作って `App.xaml`, `App.xaml.cs` として同じような内容にしておいてもかまいません。
 #### MainPage.xaml/MainPage.xaml.cs を作成する
-`Forms ContentPage` テンプレートを使って作成します。XAMLの中身は現段階では適当にしておきます。おおよそ次のようになるでしょう。
+`Forms ContentPage` テンプレートを使って作成します。これも同様に適当に作っても構いません。テンプレートを使って作るとプロジェクトファイルに `DependentUpon` が作られ、ファイルの関係性がIDEで見やすくなる程度のことです。XAMLの中身は現段階では適当にしておきます。おおよそ次のようになるでしょう。
 
 ```MainPage.xaml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -63,3 +71,26 @@ Coreと同様に導入します。また，忘れずにCoreプロジェクトへ
 
 #### AppDelegate.cs を編集
 `FormsApplicationDelegate` として振る舞うように書き換えます。
+
+### WPF
+WPF については Windows の Visual Studio を使います。
+
+#### 新規WPF Appプロジェクトを作成する
+
+#### Xamarin.Forms, Xamarin.Forms.Platform.Wpf パッケージを導入する
+Xamarin.Formsと、WPF向けパッケージを別にインストールします。また，忘れずにCoreプロジェクトへの参照を追加します。
+
+#### MainWindow.xaml を編集する
+`Window` タグに次の記述を追加し、名前空間を参照できるようにします。
+
+```
+xmlns:wpf="clr-namespace:Xamarin.Forms.Platform.WPF;assembly=Xamarin.Forms.Platform.WPF"
+```
+
+`Window` タグを `wpf:FormsApplicationPage` に変更します。
+XAML側を変更したのでコードビハインド側も変更が必要になります。`MainWindow.xaml.cs` を開いて基底クラスを変更したうえで、初期化コードを記述します。
+
+### Gtk#
+Gtk# についてはWindowsでもMacでもLinuxでも作業を行うことができます。ここではUbuntuを利用します。
+
+#### 新規Gtk# Appプロジェクトを作成する
