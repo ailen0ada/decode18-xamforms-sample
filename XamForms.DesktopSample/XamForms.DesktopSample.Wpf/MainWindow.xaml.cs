@@ -26,7 +26,7 @@ namespace XamForms.DesktopSample.Wpf
         {
             InitializeComponent();
             Forms.Init();
-            LoadApplication(new Core.App());
+            LoadApplication(new Core.App(new ImageFileSelector()));
         }
     }
 }

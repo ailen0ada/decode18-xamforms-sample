@@ -189,6 +189,21 @@ public class ImageFileSelector : IImageFileSelector
 `AppDelegate` で `Core.App` をインスタンス化しているところで，こいつもインスタンス化してやって引数に渡します。
 
 #### WPF
+`OpenFileDialog` でよさそうです。
+
+```
+public FileInfo PickImageFile()
+{
+    var ofd = new OpenFileDialog
+    {
+        Filter = "画像ファイル(*.png,*.jpg)|*.png;*.jpg"
+    };
+    var result = ofd.ShowDialog();
+    return result == true ? new FileInfo(ofd.FileName) : null;
+}
+```
+
+`MainWindow.xaml.cs` でコンストラクタの引数に渡します。
 
 #### Gtk#
 `FileChooserDialog` を使います。
