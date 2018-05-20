@@ -2,11 +2,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamForms.DesktopSample.Core", "XamForms.DesktopSample.Core\XamForms.DesktopSample.Core.csproj", "{77BC9BE9-D13B-4433-818F-DF22F0D02939}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamForms.DesktopSample.Core", "XamForms.DesktopSample.Core\XamForms.DesktopSample.Core.csproj", "{77BC9BE9-D13B-4433-818F-DF22F0D02939}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamForms.DesktopSample.Mac", "XamForms.DesktopSample.Mac\XamForms.DesktopSample.Mac.csproj", "{A9E7BBC1-65A9-472D-99AA-CFA1B98DFBA5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamForms.DesktopSample.Wpf", "XamForms.DesktopSample.Wpf\XamForms.DesktopSample.Wpf.csproj", "{E84DCEA1-555E-41D7-91C1-6EB6F26BC3CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamForms.DesktopSample.GtkSharp", "XamForms.DesktopSample.GtkSharp\XamForms.DesktopSample.GtkSharp.csproj", "{BF523261-96B2-49E0-9494-B02D0B60D31C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{E84DCEA1-555E-41D7-91C1-6EB6F26BC3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E84DCEA1-555E-41D7-91C1-6EB6F26BC3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E84DCEA1-555E-41D7-91C1-6EB6F26BC3CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF523261-96B2-49E0-9494-B02D0B60D31C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF523261-96B2-49E0-9494-B02D0B60D31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF523261-96B2-49E0-9494-B02D0B60D31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF523261-96B2-49E0-9494-B02D0B60D31C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
