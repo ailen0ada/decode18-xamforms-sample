@@ -14,7 +14,7 @@ Xamarin.Forms はモバイル開発のためだけのものではありません
 iOS, Androidについてはこのサンプルでは対象としないため，SDKインストール等は不要です。
 
 ## サンプルアプリケーション
-画像ファイルを入力とし，メディアンカット法による減色を行い，4色カラーパレットを出力するアプリケーションです。次の要素を含みます。
+画像ファイルを入力とし，何らかの方法による減色を行い，4色カラーパレットを出力するアプリケーションです。次の要素を含みます。
 
 - Xamarin.Forms 3.0 アプリケーションをプロジェクトテンプレートを使わずに構築する
 - 共通の処理を .NET Standard 2.0 プロジェクトにまとめる
@@ -109,7 +109,7 @@ Xamarin.Formsと、Gtk#向けパッケージを別にインストールします
 3. 各プラットフォームごとにXamarin.Formsパッケージと必要に応じてPlatformパッケージを導入する
 4. Core.App を各プラットフォームの流儀で呼び出す
 
-今後どんな Xamarin.Forms のサポート対象プラットフォームが増えたとしてもやることはほぼ同じです。そして VisualStudio で Xamarin.Forms プロジェクトテンプレートを使って一式作ったものも，基本的な部分は全く同じことをやっています。まずはここまで（Welcome to Xamarin.Forms!が表示されるまで）を各プラットフォームで作ってみて，その構成を眺めてみてください。
+今後どんな Xamarin.Forms のサポート対象プラットフォームが増えたとしてもやることはほぼ同じです。そして VisualStudio で Xamarin.Forms プロジェクトテンプレートを使って一式作ったものも，基本的な部分は全く同じことをやっています。まずはここまで（Welcome to Xamarin.Forms!が表示されるまで）を各プラットフォームで作ってみて，その構成を眺めてみてください。
 
 ## プラットフォームに処理を委譲する
 各プラットフォームでUIを表示することはできるようになったので，もう少し複雑なUIを定義した上で，インタラクションを各プラットフォームに委譲してみましょう。具体的には，ボタンクリックでファイルを選択させるインタラクションを定義します。
@@ -117,7 +117,7 @@ Xamarin.Formsと、Gtk#向けパッケージを別にインストールします
 ### インタラクション
 次のようなインタラクションを考えます。
 
-1. 選択ボタンをクリックする
+1. 選択ボタンをクリックする
 2. ファイル選択ダイアログで画像ファイルを選ぶ
 3. 選んだ画像ファイルのパスと画像がUIに表示される
 
@@ -133,7 +133,7 @@ interface IImageFileSelector
 }
 ```
 
-Dependency Injection (DI) のような仕組みを使う， Xamarin Plugin を使うといった方法は考えられますが，本サンプルの範囲を超えるので素直に Application クラスをインスタンス化するときに注入してしまうことにします。
+Dependency Injection (DI) のような仕組みを使う， Xamarin Plugin を使うといった方法は考えられますが，本サンプルの範囲を超えるので素直に Application クラスをインスタンス化するときに注入してしまうことにします。
 
 ```
 public partial class App : Application
@@ -216,3 +216,39 @@ public FileInfo PickImageFile()
 ```
 
 `Program.cs` でコンストラクタの引数に渡すのを忘れずに。
+
+### パレットの抽出
+手法はいろいろと考えられますが，まずは単純に画像を縮小して色を取り出すことを考えます。4色取り出したいのであれば，2x2の4ピクセル画像を縮小してしまえば，平均値のようなものを取り出すことができるはずです。クロスプラットフォームで画像操作が可能なライブラリとして，ここではSkiaSharpを採用します。
+
+#### SkiaSharp の導入
+すべてのプロジェクトで NuGet パッケージマネージャから SkiaSharp を導入します。さらに Linux で Gtk# プロジェクトを動作させる場合は， `libSkiaSharp.so` を手動で出力ディレクトリにコピーする必要があります。詳しくはリリースノートを参照してください。
+
+https://github.com/mono/SkiaSharp/releases/tag/v1.60.0
+
+#### 画像縮小の実装
+Coreプロジェクトにクラスを追加して，そのまま縮小処理を書きます。
+
+```
+public static class PaletteExtractor
+{
+    public static Color[] Extract(FileInfo file, int paletteLength)
+    {
+        using (var bmp = SKBitmap.Decode(file.FullName))
+        using(var scaled = bmp.Resize(new SKImageInfo(paletteLength / 2, paletteLength / 2), SKBitmapResizeMethod.Box))
+        {
+            return scaled.Pixels
+                         .Take(paletteLength)
+                         .Select(x => Color.FromRgba(x.Red, x.Green, x.Blue, x.Alpha))
+                         .ToArray();
+        }
+    }
+}
+```
+
+`MainPage.xaml.cs` からビューに反映させれば完成です。
+
+### ここまでのまとめ
+この節では共通化できない処理の委譲，共通化できる処理のCoreへの集約に取り組みました。対象が画像ファイルであれ，ネットワーク越しの何らかのリソースであれ，共通にできる処理とできない処理を分けて粛々と書くことができ，一方でUIのメンテナンスコストはかなり抑えることができることがおわかりいただけたと思います。
+
+## まとめ
+Xamarin.Forms 3.0からデスクトッププラットフォーム向けの対応が強化されたとは言え，いまだ発展途上です。サンプルでもうまく動作していない箇所が多々あるのは「これが Xamarin.Forms の限界」なのではなく，「いまここまでしか作っていない」からです。しかしユーザーインタフェースへのこだわりが少ないインハウスツールには採用していける程度に実装が進んでいます。このサンプルをきっかけに Xamarin.Forms をデスクトップアプリケーション開発に取り入れる例が増え， Xamarin.Forms が発展していくことを願ってやみません。

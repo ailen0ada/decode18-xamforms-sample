@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Xamarin.Forms;
 using SkiaSharp;
-using System.Linq;
 
 namespace XamForms.DesktopSample.Core
 {
