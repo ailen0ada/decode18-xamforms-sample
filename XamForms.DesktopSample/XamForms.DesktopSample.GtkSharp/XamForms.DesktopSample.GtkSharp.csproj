@@ -74,6 +74,7 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ImageFileSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

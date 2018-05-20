@@ -6,11 +6,14 @@ namespace XamForms.DesktopSample.Core
 {
     public partial class App : Application
     {
-        public App()
+        public IImageFileSelector ImageFileSelector { get; }
+
+        public App(IImageFileSelector selector)
         {
             InitializeComponent();
 
             MainPage = new MainPage();
+            ImageFileSelector = selector;
         }
     }
 }

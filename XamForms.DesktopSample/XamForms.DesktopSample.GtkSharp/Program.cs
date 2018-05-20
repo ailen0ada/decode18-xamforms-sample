@@ -13,7 +13,7 @@ namespace XamForms.DesktopSample.GtkSharp
             Gtk.Application.Init();
 			Forms.Init();
 
-			var app = new Core.App();
+            var app = new Core.App(new ImageFileSelector());
 			var window = new FormsWindow();
 			window.LoadApplication(app);
 			window.Show();

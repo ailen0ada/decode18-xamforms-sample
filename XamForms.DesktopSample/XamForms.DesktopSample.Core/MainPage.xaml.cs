@@ -11,5 +11,17 @@ namespace XamForms.DesktopSample.Core
         {
             InitializeComponent();
         }
+
+        void SelectImageFile(object sender, System.EventArgs e)
+        {
+            var selector = (App.Current as Core.App)?.ImageFileSelector;
+            if (selector == null) return;
+
+            var file = selector.PickImageFile();
+            if (file == null || !file.Exists) return;
+
+            this.PathLabel.Text = file.FullName;
+            this.ImageView.Source = ImageSource.FromFile(file.FullName);
+        }
     }
 }

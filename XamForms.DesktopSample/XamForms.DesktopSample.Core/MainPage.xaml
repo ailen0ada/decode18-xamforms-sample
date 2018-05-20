@@ -3,8 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamForms.DesktopSample.Core.MainPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-            <Label Text="Welcome to Xamarin Forms!" VerticalOptions="Center" HorizontalOptions="Center" />
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Image x:Name="ImageView" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" />
+            <StackLayout Orientation="Horizontal" VerticalOptions="Fill" HorizontalOptions="FillAndExpand">
+                <BoxView Color="Fuchsia" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                <BoxView Color="Yellow" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                <BoxView Color="Green" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                <BoxView Color="Blue" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Padding="20">
+                <Label x:Name="PathLabel" Text="Select Image to start." VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                <Button Text="Select Image" VerticalOptions="Center" HorizontalOptions="End" Clicked="SelectImageFile" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

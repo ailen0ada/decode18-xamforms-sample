@@ -110,3 +110,109 @@ Xamarin.Formsと、Gtk#向けパッケージを別にインストールします
 4. Core.App を各プラットフォームの流儀で呼び出す
 
 今後どんな Xamarin.Forms のサポート対象プラットフォームが増えたとしてもやることはほぼ同じです。そして VisualStudio で Xamarin.Forms プロジェクトテンプレートを使って一式作ったものも，基本的な部分は全く同じことをやっています。まずはここまで（Welcome to Xamarin.Forms!が表示されるまで）を各プラットフォームで作ってみて，その構成を眺めてみてください。
+
+## プラットフォームに処理を委譲する
+各プラットフォームでUIを表示することはできるようになったので，もう少し複雑なUIを定義した上で，インタラクションを各プラットフォームに委譲してみましょう。具体的には，ボタンクリックでファイルを選択させるインタラクションを定義します。
+
+### インタラクション
+次のようなインタラクションを考えます。
+
+1. 選択ボタンをクリックする
+2. ファイル選択ダイアログで画像ファイルを選ぶ
+3. 選んだ画像ファイルのパスと画像がUIに表示される
+
+CoreプロジェクトのXAMLを編集してこれを可能にするUIを定義します。ここでは画像表示コントロール，色表示のためのビュー，ラベル，ボタンを配置します。
+
+### ファイル選択機能の注入
+ファイル選択は各プラットフォームそれぞれのお作法で面倒を見てやる必要があります。次のようなインタフェースを考え，この実装を各プラットフォームで行うこととします。
+
+```
+interface IImageFileSelector
+{
+    FileInfo PickImageFile();
+}
+```
+
+Dependency Injection (DI) のような仕組みを使う， Xamarin Plugin を使うといった方法は考えられますが，本サンプルの範囲を超えるので素直に Application クラスをインスタンス化するときに注入してしまうことにします。
+
+```
+public partial class App : Application
+{
+    public IImageFileSelector ImageFileSelector { get; }
+
+    public App(IImageFileSelector selector)
+    {
+        InitializeComponent();
+
+        MainPage = new MainPage();
+        ImageFileSelector = selector;
+    }
+}
+```
+
+`MainPage` で選択ボタンがクリックされたときの処理は次のようになるでしょう。本サンプルではコードビハインドから直接アクセスします。
+
+```
+void SelectImageFile(object sender, System.EventArgs e)
+{
+    var selector = (App.Current as Core.App)?.ImageFileSelector;
+    if (selector == null) return;
+
+    var file = selector.PickImageFile();
+    if (file == null || !file.Exists) return;
+
+    this.PathLabel.Text = file.FullName;
+    this.ImageView.Source = ImageSource.FromFile(file.FullName);
+}
+```
+
+まずはここまでで，各プラットフォームでファイル選択を実装しましょう。
+
+#### macOS
+`NSOpenPanel` を使ってしまえばいいでしょう。
+
+```
+public class ImageFileSelector : IImageFileSelector
+{
+    public FileInfo PickImageFile()
+    {
+        var ofd = new NSOpenPanel
+        {
+            AllowedFileTypes = new[] { "png", "jpg" }
+        };
+        var ret = ofd.RunModal();
+        return ret < 1 ? null : new FileInfo(ofd.Url.Path);
+    }
+}
+```
+
+`AppDelegate` で `Core.App` をインスタンス化しているところで，こいつもインスタンス化してやって引数に渡します。
+
+#### WPF
+
+#### Gtk#
+`FileChooserDialog` を使います。
+
+```
+public FileInfo PickImageFile()
+{
+    var filter = new FileFilter { Name = "Image files" };
+    filter.AddPattern("*.png");
+    filter.AddPattern("*.jpg");
+    var fcd = new FileChooserDialog("Choose image file", null, FileChooserAction.Open, "Cancel", ResponseType.Close, "Select", ResponseType.Accept)
+    {
+        SelectMultiple = false,
+        Filter = filter
+    };
+    try
+    {
+        return fcd.Run() == (int)ResponseType.Accept ? new FileInfo(fcd.Filename) : null;
+    }
+    finally
+    {
+        fcd.Destroy();
+    }
+}
+```
+
+`Program.cs` でコンストラクタの引数に渡すのを忘れずに。

@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="ImageFileSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamForms.DesktopSample.Core\XamForms.DesktopSample.Core.csproj">
