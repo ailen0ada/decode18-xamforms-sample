@@ -22,6 +22,8 @@ namespace XamForms.DesktopSample.Core
 
             this.PathLabel.Text = file.FullName;
             this.ImageView.Source = ImageSource.FromFile(file.FullName);
+
+            var colors = PaletteExtractor.Extract(file, 4);
         }
     }
 }
