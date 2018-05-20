@@ -39,6 +39,10 @@ NuGet パッケージを追加します。執筆時点ではバージョン `3.0
 #### App.xaml/App.xaml.cs を作成する
 `Forms ContentPage` テンプレートを使って作成し， `Application` として振る舞うように書き換えます。
 テンプレートを使わずとも、適当なファイルを作って `App.xaml`, `App.xaml.cs` として同じような内容にしておいてもかまいません。
+
+[App.xaml](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Core/App.xaml)
+[App.xaml.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/c0ebc6ceb2800ac5e827dc637aec347f7e06df25/XamForms.DesktopSample/XamForms.DesktopSample.Core/App.xaml.cs)
+
 #### MainPage.xaml/MainPage.xaml.cs を作成する
 `Forms ContentPage` テンプレートを使って作成します。これも同様に適当に作っても構いません。テンプレートを使って作るとプロジェクトファイルに `DependentUpon` が作られ、ファイルの関係性がIDEで見やすくなる程度のことです。XAMLの中身は現段階では適当にしておきます。おおよそ次のようになるでしょう。
 
@@ -55,10 +59,15 @@ NuGet パッケージを追加します。執筆時点ではバージョン `3.0
 </ContentPage>
 ```
 
+[MainPage.xaml](https://github.com/ailen0ada/decode18-xamforms-sample/blob/c0ebc6ceb2800ac5e827dc637aec347f7e06df25/XamForms.DesktopSample/XamForms.DesktopSample.Core/MainPage.xaml)
+[MainPage.xaml.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/c0ebc6ceb2800ac5e827dc637aec347f7e06df25/XamForms.DesktopSample/XamForms.DesktopSample.Core/MainPage.xaml.cs)
+
 ### macOS
 #### 新規Cocoa Appプロジェクトを作成する
 #### Info.plistを編集
 `NSMainStoryboardFile` のエントリを削除します。起動時に表示されるユーザーインタフェースをこちらでコントロールできるようになります。
+
+[Info.plist](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Mac/Info.plist)
 
 #### Main.storyboard, ViewController.cs を削除
 UIはCoreプロジェクトで作成しているので不要です。
@@ -67,7 +76,9 @@ UIはCoreプロジェクトで作成しているので不要です。
 Coreと同様に導入します。また，忘れずにCoreプロジェクトへの参照を追加します。
 
 #### AppDelegate.cs を編集
-`FormsApplicationDelegate` として振る舞うように書き換えます。
+`AppDelegate` クラスが `FormsApplicationDelegate` として振る舞うように書き換えます。
+
+[AppDelegate.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/72c92d5da8b754cac214318740be678a1599edfd/XamForms.DesktopSample/XamForms.DesktopSample.Mac/AppDelegate.cs)
 
 ### WPF
 WPF については Windows の Visual Studio を使います。
@@ -85,7 +96,12 @@ xmlns:wpf="clr-namespace:Xamarin.Forms.Platform.WPF;assembly=Xamarin.Forms.Platf
 ```
 
 `Window` タグを `wpf:FormsApplicationPage` に変更します。
+
+[MainWidnow.xaml](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Wpf/MainWindow.xaml)
+
 XAML側を変更したのでコードビハインド側も変更が必要になります。`MainWindow.xaml.cs` を開いて基底クラスを変更したうえで、初期化コードを記述します。
+
+[MainWindow.xaml.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/6a7c4ff76014ce76d5e7ef7c84607d29eb87ef51/XamForms.DesktopSample/XamForms.DesktopSample.Wpf/MainWindow.xaml.cs)
 
 ### Gtk#
 Gtk# についてはWindowsでもMacでもLinuxでも作業を行うことができます。ここではUbuntuを利用します。
@@ -101,6 +117,8 @@ Xamarin.Formsと、Gtk#向けパッケージを別にインストールします
 
 #### Program.cs を書き換えて Core.App を呼び出す
 特に他にやることはありません。
+
+[Program.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/9a75f51ad19bbef14439c35fb6614fc310f8af9d/XamForms.DesktopSample/XamForms.DesktopSample.GtkSharp/Program.cs)
 
 ### ここまでのまとめ
 
@@ -123,6 +141,8 @@ Xamarin.Formsと、Gtk#向けパッケージを別にインストールします
 
 CoreプロジェクトのXAMLを編集してこれを可能にするUIを定義します。ここでは画像表示コントロール，色表示のためのビュー，ラベル，ボタンを配置します。
 
+[MainPage.xaml](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Core/MainPage.xaml)
+
 ### ファイル選択機能の注入
 ファイル選択は各プラットフォームそれぞれのお作法で面倒を見てやる必要があります。次のようなインタフェースを考え，この実装を各プラットフォームで行うこととします。
 
@@ -132,6 +152,8 @@ interface IImageFileSelector
     FileInfo PickImageFile();
 }
 ```
+
+[IImageFileSelector.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Core/IImageFileSelector.cs)
 
 Dependency Injection (DI) のような仕組みを使う， Xamarin Plugin を使うといった方法は考えられますが，本サンプルの範囲を超えるので素直に Application クラスをインスタンス化するときに注入してしまうことにします。
 
@@ -150,6 +172,8 @@ public partial class App : Application
 }
 ```
 
+[App.xaml.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Core/App.xaml.cs)
+
 `MainPage` で選択ボタンがクリックされたときの処理は次のようになるでしょう。本サンプルではコードビハインドから直接アクセスします。
 
 ```
@@ -165,6 +189,8 @@ void SelectImageFile(object sender, System.EventArgs e)
     this.ImageView.Source = ImageSource.FromFile(file.FullName);
 }
 ```
+
+[MainPage.xaml.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/5b046e9bf40dec56c4efd8ad701f3f14cb5dde5f/XamForms.DesktopSample/XamForms.DesktopSample.Core/MainPage.xaml.cs)
 
 まずはここまでで，各プラットフォームでファイル選択を実装しましょう。
 
@@ -186,7 +212,11 @@ public class ImageFileSelector : IImageFileSelector
 }
 ```
 
+[Mac/ImageFileSelector.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Mac/ImageFileSelector.cs)
+
 `AppDelegate` で `Core.App` をインスタンス化しているところで，こいつもインスタンス化してやって引数に渡します。
+
+[AppDelegate.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/997e8cc099af2b2fb7b68e355b448163bc0ea22b/XamForms.DesktopSample/XamForms.DesktopSample.Mac/AppDelegate.cs#L26)
 
 #### WPF
 `OpenFileDialog` でよさそうです。
@@ -203,7 +233,11 @@ public FileInfo PickImageFile()
 }
 ```
 
+[Wpf/ImageFileSelector.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Wpf/ImageFileSelector.cs)
+
 `MainWindow.xaml.cs` でコンストラクタの引数に渡します。
+
+[MainWindow.xaml.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/997e8cc099af2b2fb7b68e355b448163bc0ea22b/XamForms.DesktopSample/XamForms.DesktopSample.Wpf/MainWindow.xaml.cs#L29)
 
 #### Gtk#
 `FileChooserDialog` を使います。
@@ -230,7 +264,11 @@ public FileInfo PickImageFile()
 }
 ```
 
+[GtkSharp/ImageFileSelector.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.GtkSharp/ImageFileSelector.cs)
+
 `Program.cs` でコンストラクタの引数に渡すのを忘れずに。
+
+[Program.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/997e8cc099af2b2fb7b68e355b448163bc0ea22b/XamForms.DesktopSample/XamForms.DesktopSample.GtkSharp/Program.cs#L16)
 
 ### パレットの抽出
 手法はいろいろと考えられますが，まずは単純に画像を縮小して色を取り出すことを考えます。4色取り出したいのであれば，2x2の4ピクセル画像を縮小してしまえば，平均値のようなものを取り出すことができるはずです。クロスプラットフォームで画像操作が可能なライブラリとして，ここではSkiaSharpを採用します。
@@ -260,7 +298,11 @@ public static class PaletteExtractor
 }
 ```
 
+[PaletteExtractor.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Core/PaletteExtractor.cs)
+
 `MainPage.xaml.cs` からビューに反映させれば完成です。
+
+[MainPage.xaml.cs](https://github.com/ailen0ada/decode18-xamforms-sample/blob/997e8cc099af2b2fb7b68e355b448163bc0ea22b/XamForms.DesktopSample/XamForms.DesktopSample.Core/MainPage.xaml.cs#L26)
 
 ### ここまでのまとめ
 この節では共通化できない処理の委譲，共通化できる処理のCoreへの集約に取り組みました。対象が画像ファイルであれ，ネットワーク越しの何らかのリソースであれ，共通にできる処理とできない処理を分けて粛々と書くことができ，一方でUIのメンテナンスコストはかなり抑えることができることがおわかりいただけたと思います。
