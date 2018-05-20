@@ -5,16 +5,13 @@ Xamarin.Forms はモバイル開発のためだけのものではありません
 ## 前提条件
 次の環境を使って構築します。
 
-- Visual Studio 2017 15.7.1 （デスクトップアプリケーション開発）
-- Visual Studio for Mac 7.5.1.22
+- Visual Studio 2017 15.7.1 (Windows 10 1803)
+- Visual Studio for Mac 7.5.1.22 (macOS High Sierra 10.13.4)
 - Xamarin.Mac 4.4.1.178
-- MonoDevelop 7.5.0.1254
+- MonoDevelop 7.5.0.1254 (Ubuntu 18.04)
+- すべての環境で .NET Core SDK 2.0 以降がインストールされていること
 
-- Windows 10 1803
-- macOS High Sierra 10.13.3
-- Ubuntu 18.04
-
-iOS, Androidについてはこのサンプルでは対象としないため，SDKインストール等は不要です。さらにmacOSのサンプルを実行しないのであれば，macOS環境も不要です。
+iOS, Androidについてはこのサンプルでは対象としないため，SDKインストール等は不要です。
 
 ## サンプルアプリケーション
 画像ファイルを入力とし，メディアンカット法による減色を行い，4色カラーパレットを出力するアプリケーションです。次の要素を含みます。
@@ -28,7 +25,7 @@ iOS, Androidについてはこのサンプルでは対象としないため，SD
   - XamForms.DesktopSample.Core - UI定義と減色処理
   - XamForms.DesktopSample.Mac - Xamarin.Mac実装
   - XamForms.DesktopSample.Wpf - WPF (Windows Presentation Platform) 実装
-  - XamForms.DesktopSample.Gtk - Gtk# 実装
+  - XamForms.DesktopSample.GtkSharp - Gtk# 実装
 
 ## 各プラットフォームで Xamarin.Forms アプリケーションを動かす
 
@@ -93,4 +90,23 @@ XAML側を変更したのでコードビハインド側も変更が必要にな�
 ### Gtk#
 Gtk# についてはWindowsでもMacでもLinuxでも作業を行うことができます。ここではUbuntuを利用します。
 
-#### 新規Gtk# Appプロジェクトを作成する
+#### 新規 Gtk# 2.0 アプリケーションプロジェクトを作成する
+VisualStudio for Mac，および MonoDevelop には該当のプロジェクトテンプレートがあります。
+
+#### MainWindow.cs を削除する
+特に使いません。
+
+#### Xamarin.Forms, Xamarin.Forms.Platform.GTK パッケージを導入する
+Xamarin.Formsと、Gtk#向けパッケージを別にインストールします。また，忘れずにCoreプロジェクトへの参照を追加します。
+
+#### Program.cs を書き換えて Core.App を呼び出す
+特に他にやることはありません。
+
+### ここまでのまとめ
+
+1. Coreプロジェクトを作ってUIとAppクラスを作る
+2. それぞれのプラットフォームに合わせたプロジェクトを作る
+3. 各プラットフォームごとにXamarin.Formsパッケージと必要に応じてPlatformパッケージを導入する
+4. Core.App を各プラットフォームの流儀で呼び出す
+
+今後どんな Xamarin.Forms のサポート対象プラットフォームが増えたとしてもやることはほぼ同じです。そして VisualStudio で Xamarin.Forms プロジェクトテンプレートを使って一式作ったものも，基本的な部分は全く同じことをやっています。まずはここまで（Welcome to Xamarin.Forms!が表示されるまで）を各プラットフォームで作ってみて，その構成を眺めてみてください。
