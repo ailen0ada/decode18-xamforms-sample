@@ -6,10 +6,10 @@
         <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <Image x:Name="ImageView" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" />
             <StackLayout Orientation="Horizontal" VerticalOptions="Fill" HorizontalOptions="FillAndExpand">
-                <BoxView Color="Fuchsia" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-                <BoxView Color="Yellow" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-                <BoxView Color="Green" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-                <BoxView Color="Blue" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                <BoxView x:Name="ColorTip1" Color="Fuchsia" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                <BoxView x:Name="ColorTip2" Color="Yellow" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                <BoxView x:Name="ColorTip3" Color="Green" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                <BoxView x:Name="ColorTip4" Color="Blue" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
             </StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Padding="20">
                 <Label x:Name="PathLabel" Text="Select Image to start." VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
