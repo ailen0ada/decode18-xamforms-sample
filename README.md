@@ -97,7 +97,7 @@ xmlns:wpf="clr-namespace:Xamarin.Forms.Platform.WPF;assembly=Xamarin.Forms.Platf
 
 `Window` タグを `wpf:FormsApplicationPage` に変更します。
 
-[MainWidnow.xaml](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Wpf/MainWindow.xaml)
+[MainWindow.xaml](https://github.com/ailen0ada/decode18-xamforms-sample/blob/master/XamForms.DesktopSample/XamForms.DesktopSample.Wpf/MainWindow.xaml)
 
 XAML側を変更したのでコードビハインド側も変更が必要になります。`MainWindow.xaml.cs` を開いて基底クラスを変更したうえで、初期化コードを記述します。
 
