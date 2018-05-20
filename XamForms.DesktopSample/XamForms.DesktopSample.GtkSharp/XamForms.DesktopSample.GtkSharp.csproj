@@ -83,6 +83,9 @@
     <None Include="packages.config" />
     <None Include="webkit-sharp.dll.config" />
     <None Include="OpenTK.dll.config" />
+    <None Include="libSkiaSharp.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamForms.DesktopSample.Core\XamForms.DesktopSample.Core.csproj">
